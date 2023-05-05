@@ -1,11 +1,12 @@
+import { vec3 } from "gl-matrix";
 import { vec2 } from "../Utilities";
 
 export interface Line {
-  begin: vec2;
-  end: vec2;
+  color?: number;
+  width: number;
 }
 
 export interface SolidLine extends Line {
-  color: number;
-  width: number;
+  begin: vec2;
+  end: vec2;
 }

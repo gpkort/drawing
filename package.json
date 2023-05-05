@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "file-system": "^2.2.2",
     "gl-matrix": "^3.4.3",
     "html-webpack-plugin": "^5.5.1",
     "ts-loader": "^9.4.2",

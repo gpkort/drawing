@@ -16,3 +16,14 @@ export const drawSolidLine = (
 
   ctx.lineWidth = lw;
 };
+
+export const rotate = (
+  line: SolidLine,
+  rotation: number,
+  origin?: vec2
+): SolidLine => {
+  const newLine: SolidLine = { ...line };
+  vec2.rotate(newLine.end, line.end, line.begin, rotation);
+
+  return newLine;
+};
