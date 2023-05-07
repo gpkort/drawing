@@ -1,16 +1,24 @@
 import { vec2, vec4 } from "gl-matrix";
-import { createCanvas, rotate } from "./Utilities";
-import { SolidLine } from "./geometry";
-import { drawSolidLine } from "./Utilities";
+import { 
+  createCanvas, 
+  rotate, 
+  midpoint, 
+  drawLine, 
+  getLineStyle 
+} from "./Utilities";
+import { IStraigtLine } from "./geometry";
+import Color from "./geometry/Color";
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
   #context: CanvasRenderingContext2D;
 
-  #line: SolidLine = {
+  #line: IStraigtLine = {
     begin: vec2.fromValues(500, 260),
     end: vec2.fromValues(750, 260),
     width: 5,
+    lineStyle: getLineStyle('dash'),
+    color: Color.create()
   };
 
   constructor() {
@@ -18,8 +26,8 @@ export default class Drawing {
     this.#canvas = createCanvas(1000, 1000);
     this.#context = this.#canvas.getContext("2d");
 
-    drawSolidLine(this.#line, this.#context);
-
+    drawLine(this.#line, this.#context);
+    
     this.#animate();
   }
 
@@ -29,7 +37,13 @@ export default class Drawing {
     const line = this.#line;
 
     function draw(timestamp: number) {
-      drawSolidLine(rotate(line, -Math.PI / count, line.begin), ctx);
+      if(count % 2 === 0) {
+        drawLine(rotate(
+          line, 
+          -Math.PI / count, 
+          midpoint(line.begin, line.end)), 
+          ctx);
+      }
       requestAnimationFrame(draw);
       count++;
     }

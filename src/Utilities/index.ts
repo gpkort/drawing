@@ -2,5 +2,6 @@ import { glMatrix } from "gl-matrix";
 glMatrix.setMatrixArrayType(Array);
 
 export { createCanvas } from "./genericUtils";
-export { drawSolidLine, rotate } from "./geometryUtils";
+export { drawLine, rotate, len, midpoint } from "./geometryUtils";
+export { getLineStyle, LineStyle} from "./lookupUtils"
 export * from "gl-matrix";
