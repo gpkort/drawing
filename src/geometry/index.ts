@@ -1,10 +1,7 @@
-import Color from "./Color";
+export * from "./Shape";
 
-export { 
-    IPoint2D, 
-    ILine, 
-    IStraigtLine,
-    ICircle 
-} from "./shapeInterfaces";
+export { IColor } from "./Color";
 
+export * from "./Ellipse";
 
+export { ILine, IStraigtLine } from "./Lines";
