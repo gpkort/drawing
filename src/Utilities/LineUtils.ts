@@ -1,6 +1,6 @@
-import { ICircle, IColor, IStraigtLine } from "../geometry";
+import { IStraigtLine } from "../geometry";
 import { getRGBAString, vec2 } from ".";
-import { rotatePoints } from "./genericUtils";
+import { getContextInfo, rotatePoints, setContextInfo } from "./.";
 
 export type LineStyle = "dash" | "stipple" | "solid";
 
@@ -16,19 +16,8 @@ export const getLineStyle = (name: LineStyle): number[] => {
   }
 };
 
-export const drawCircle = (circle: ICircle, ctx: CanvasRenderingContext2D) => {
-  const lw = ctx.lineWidth;
-  ctx.lineWidth = circle.outline.width;
-  ctx.fillStyle;
-
-  ctx.lineWidth = lw;
-};
-
 export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
-  const lw = ctx.lineWidth;
-  ctx.lineWidth = line.width;
-  const ld = ctx.getLineDash();
-  const color = ctx.strokeStyle;
+  const canvasInfo = getContextInfo(ctx);
 
   ctx.strokeStyle = getRGBAString(line.color);
   ctx.setLineDash(line.lineStyle);
@@ -36,9 +25,7 @@ export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
   ctx.lineTo(line.end[0], line.end[1]);
   ctx.stroke();
 
-  ctx.lineWidth = lw;
-  ctx.setLineDash(ld);
-  ctx.strokeStyle = color;
+  setContextInfo(ctx, canvasInfo);
 };
 
 export const rotateLine = (
