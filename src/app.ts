@@ -23,15 +23,15 @@ export default class Drawing {
 
   #circle: ICircle = {
     outline: {
-      color: {r:255, g:0, b:0, a:100},
-      width: 2,
-      lineStyle: []
+      color: { r: 255, g: 0, b: 0, a: 100 },
+      width: 8,
+      lineStyle: [],
     },
-    fillColor: {r:0, g:0, b:0, a:100},
+    fillColor: { r: 0, g: 0, b: 0, a: 100 },
     center: vec2.fromValues(500, 500),
-    radius: 100
-}
-  
+    radius: 100,
+  };
+
   constructor() {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);

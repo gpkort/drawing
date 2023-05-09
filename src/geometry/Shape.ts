@@ -6,7 +6,7 @@ export interface IShape {
   readonly id?: string;
 }
 
-export interface IPolygon extends IShape {
+export interface IGeometry extends IShape {
   outline: ILine;
   fillColor: IColor;
   center: vec2;
