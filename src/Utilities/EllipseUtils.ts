@@ -1,26 +1,51 @@
 import { ICircle, IEllipse } from "../geometry";
+import { getContextInfo, getRGBAString, setContextInfo } from "./.";
 
 export const drawCircle = (circle: ICircle, ctx: CanvasRenderingContext2D) => {
-  const lw = ctx.lineWidth;
-  ctx.lineWidth = circle.outline.width;
-  ctx.fillStyle;
-  ctx.lineWidth = lw;
+  const ellipse: IEllipse = {
+    xRadius:circle.radius, 
+    yRadius: circle.radius, 
+    ...circle
+  }
+  
+  drawEllipse(ellipse, ctx)
 };
 
 export const drawEllipse = (
   ellipse: IEllipse,
   ctx: CanvasRenderingContext2D
-) => {};
+) => {
+  const canvasInfo = getContextInfo(ctx);
+
+  ctx.strokeStyle = getRGBAString(ellipse.outline.color);
+  ctx.lineWidth = ellipse.outline.width
+  ctx.fillStyle = getRGBAString(ellipse.fillColor);
+  ctx.beginPath();
+  ctx.ellipse(
+      ellipse.center[0], 
+      ellipse.center[1], 
+      ellipse.xRadius, 
+      ellipse.yRadius, 
+              0, 
+              0, 
+              2 * Math.PI);
+  ctx.stroke();
+
+  // ctx.ellipse(
+  //   ellipse.center[0], 
+  //   ellipse.center[1], 
+  //   ellipse.xRadius, 
+  //   ellipse.yRadius, 
+  //           0, 
+  //           0, 
+  //           2 * Math.PI);
+
+  ctx.fill();
+  
+  setContextInfo(ctx, canvasInfo);
+};
 
 /*
-  ctx.beginPath();
-ctx.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI);
-ctx.stroke();
+  
 
-// Draw the ellipse's line of reflection
-ctx.beginPath();
-ctx.setLineDash([5, 5]);
-ctx.moveTo(0, 200);
-ctx.lineTo(200, 0);
-ctx.stroke();
 */

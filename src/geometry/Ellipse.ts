@@ -4,7 +4,7 @@ export interface ICircle extends IPolygon {
   radius: number;
 }
 
-export interface IEllipse extends ICircle {
+export interface IEllipse extends IPolygon {
   xRadius: number;
   yRadius: number;
 }

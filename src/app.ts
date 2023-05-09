@@ -6,7 +6,8 @@ import {
   drawLine,
   getLineStyle,
 } from "./Utilities";
-import { IStraigtLine } from "./geometry";
+import { ICircle, IStraigtLine } from "./geometry";
+import { drawCircle } from "./Utilities/EllipseUtils";
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
@@ -15,19 +16,31 @@ export default class Drawing {
   #line: IStraigtLine = {
     begin: vec2.fromValues(500, 260),
     end: vec2.fromValues(750, 260),
-    width: 5,
+    width: 10,
     lineStyle: getLineStyle("dash"),
     color: { r: 255, g: 0, b: 0, a: 100 },
   };
 
+  #circle: ICircle = {
+    outline: {
+      color: {r:255, g:0, b:0, a:100},
+      width: 2,
+      lineStyle: []
+    },
+    fillColor: {r:0, g:0, b:0, a:100},
+    center: vec2.fromValues(500, 500),
+    radius: 100
+}
+  
   constructor() {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
     this.#context = this.#canvas.getContext("2d");
 
-    drawLine(this.#line, this.#context);
+    //drawLine(this.#line, this.#context);
+    drawCircle(this.#circle, this.#context);
 
-    this.#animate();
+    //this.#animate();
   }
 
   #animate() {
