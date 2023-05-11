@@ -1,20 +1,23 @@
 import { vec2 } from ".";
+import { IGeometry, IShape } from "../geometry";
 import { IEquallateral } from "../geometry/Polygon";
 
-export const getVerticies = (shape: IEquallateral) => {
-  //const cp:vec2 = vec2.fromValues(shape.center[0], shape.center[1] - shape.)
-  const thetaA = (2 * Math.PI) / shape.numberOfSides;
-  const thetaB = (Math.PI - thetaA) / 2;
-  const ratio = shape.sideLength / Math.sin(thetaA);
-  const radiux = ratio * Math.sign(thetaB);
+export const getVertices = (shape: IEquallateral) => {
+  const sides = shape.numberOfSides;
+  const verticies = Array<vec2>(sides);
+  const theta = (2 * Math.PI) / sides / 2;
+  const rad = getRadiux(shape.sideLength / 2, theta);
 
-  //oppisite side / theta ==
+  for (let i = 0; i < sides; i++) {
+    // point = i === 0 ? getNextVertex(point, Math.PI /2, );
+    // verticies.push(point);
+  }
 };
 
-export const originTpointXform = (point: vec2, origin?: vec2): vec2 => {
-  origin = origin ?? vec2.create();
-  const retval = vec2.create();
-  vec2.multiply(retval, point, origin);
+const getVertix = (center: vec2, theta: number, length: number) => {
+  const height = 0;
+};
 
-  return retval;
+const getRadiux = (length: number, theta: number) => {
+  return (length / Math.sin(theta)) * Math.sign(theta);
 };
