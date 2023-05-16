@@ -8,6 +8,9 @@ import {
 } from "./Utilities";
 import { ICircle, IStraigtLine } from "./geometry";
 import { drawCircle } from "./Utilities/EllipseUtils";
+import { IEquilateral } from "./geometry/Polygon";
+import { drawEquilateral } from "./Utilities";
+
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
@@ -23,14 +26,27 @@ export default class Drawing {
 
   #circle: ICircle = {
     outline: {
-      color: { r: 255, g: 0, b: 0, a: 100 },
+      color: { r: 0, g: 0, b: 100, a: 100 },
       width: 8,
       lineStyle: [],
     },
-    fillColor: { r: 0, g: 0, b: 0, a: 100 },
+    fillColor: { r: 200, g: 0, b: 255, a: 100 },
     center: vec2.fromValues(500, 500),
-    radius: 100,
+    radius: 300,
   };
+
+  #penatagon: IEquilateral = {
+    outline: {
+      color: {r:0, g:0, b:0, a: 100},
+      width: 2,
+      lineStyle: []
+    },
+    fillColor: {r:255, g:255, b:0, a:100},
+    center: vec2.fromValues(500, 500),
+    sideLength: 50,
+    numberOfSides: 8
+  }
+  
 
   constructor() {
     console.log("Constructor called");
@@ -39,6 +55,7 @@ export default class Drawing {
 
     //drawLine(this.#line, this.#context);
     drawCircle(this.#circle, this.#context);
+    //drawEquilateral(this.#penatagon, this.#context);
 
     //this.#animate();
   }

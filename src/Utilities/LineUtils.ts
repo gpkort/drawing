@@ -1,6 +1,6 @@
 import { IStraigtLine } from "../geometry";
 import { getRGBAString, vec2 } from ".";
-import { getContextInfo, rotatePoints, setContextInfo } from "./.";
+import { rotatePoints } from "./.";
 
 export type LineStyle = "dash" | "stipple" | "solid";
 
@@ -17,7 +17,7 @@ export const getLineStyle = (name: LineStyle): number[] => {
 };
 
 export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
-  const canvasInfo = getContextInfo(ctx);
+  ctx.save();
 
   ctx.strokeStyle = getRGBAString(line.color);
   ctx.setLineDash(line.lineStyle);
@@ -25,7 +25,7 @@ export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
   ctx.lineTo(line.end[0], line.end[1]);
   ctx.stroke();
 
-  setContextInfo(ctx, canvasInfo);
+  ctx.restore();
 };
 
 export const rotateLine = (

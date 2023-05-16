@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { getVertices } from ".";
 import { vec2 } from "gl-matrix";
-import { IEquallateral } from "../geometry/Polygon";
+import { IEquilateral } from "../geometry/Polygon";
 
 describe("xform", () => {
   test("t1", () => {
-    const square: IEquallateral = {
+    const square: IEquilateral = {
       numberOfSides: 4,
       sideLength: 1,
       outline: {

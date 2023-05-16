@@ -10,32 +10,6 @@ export interface CanvasInfo {
   strokeStyle: string | CanvasPattern | CanvasGradient;
 }
 
-export const getContextInfo = (ctx: CanvasRenderingContext2D): CanvasInfo => {
-  return {
-    lineWidth: ctx.lineWidth,
-    fillStyle: ctx.fillStyle,
-    lineDash: ctx.getLineDash(),
-    strokeStyle: ctx.strokeStyle,
-  };
-};
-
-export const setContextInfo = (
-  ctx: CanvasRenderingContext2D,
-  canvasInfo: CanvasInfo
-) => {
-  ctx.lineWidth = canvasInfo.lineWidth;
-  ctx.fillStyle = canvasInfo.fillStyle;
-  ctx.setLineDash(canvasInfo.lineDash);
-  ctx.strokeStyle = canvasInfo.strokeStyle;
-};
-
-/*
-const lw = ctx.lineWidth;
-  ctx.lineWidth = circle.outline.width;
-  ctx.fillStyle;
-  ctx.lineWidth = lw;
-  */
-
 export const createCanvas = (height?: number, width?: number) => {
   const canvas = <HTMLCanvasElement>document.createElement("canvas");
   canvas.height = width ?? DEFAULT_CANVAS_HEIGHT;

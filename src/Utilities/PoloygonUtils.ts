@@ -1,8 +1,16 @@
 import { vec2 } from ".";
-import { IGeometry, IShape } from "../geometry";
-import { IEquallateral } from "../geometry/Polygon";
+import { IColor, IGeometry, ILine, IShape } from "../geometry";
+import { IEquilateral } from "../geometry/Polygon";
+import { getRGBAString } from "./.";
 
-export const getVertices = (shape: IEquallateral) => {
+export const drawEquilateral = (shape: IEquilateral, ctx: CanvasRenderingContext2D) => {
+  const verticies = getVertices(shape)
+
+  drawFromVerticies(verticies, shape.outline, shape.fillColor, ctx)
+
+}
+
+export const getVertices = (shape: IEquilateral) => {
   const sides = shape.numberOfSides;
   const verticies = new Array<vec2>();
   const alpha = (2 * Math.PI) / sides;
@@ -16,6 +24,28 @@ export const getVertices = (shape: IEquallateral) => {
   return verticies;
 };
 
+export const drawFromVerticies = (points: Array<vec2>, 
+                                  line: ILine, 
+                                  fillColor: IColor, 
+                                  ctx: CanvasRenderingContext2D) => {
+  ctx.save();
+
+  ctx.moveTo(points[0][0], points[0][1]);
+  points.forEach(point => {
+    ctx.lineTo(point[0], point[1]);
+  });
+
+  ctx.lineTo(points[0][0], points[0][1])
+
+  ctx.fillStyle = getRGBAString(fillColor);
+  ctx.fill();
+  ctx.lineWidth = line.width;
+  ctx.strokeStyle = getRGBAString(line.color);
+  ctx.stroke();
+
+  ctx.restore()
+}
+
 const getVertix = (theta: number, radiux: number, center: vec2) => {
   //console.log(`t: ${theta}, r: ${radiux}, cx: ${center[0]}, cy: ${center[1]}`)
   const x = center[0] + radiux * Math.cos(theta);
@@ -28,3 +58,5 @@ const getRadiux = (length: number, theta: number) => {
   const beta = ((2 * Math.PI) - theta) / 2;
   return (length / Math.sin(theta)) * Math.sign(beta);
 };
+
+
