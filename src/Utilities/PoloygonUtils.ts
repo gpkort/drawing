@@ -1,5 +1,5 @@
 import { vec2 } from ".";
-import { IColor, IGeometry, ILine, IShape } from "../geometry";
+import { IColor, IGeometry, ILine, IPoint2D, IShape } from "../geometry";
 import { IEquilateral } from "../geometry/Polygon";
 import { getRGBAString } from "./.";
 
@@ -46,12 +46,12 @@ export const drawFromVerticies = (points: Array<vec2>,
   ctx.restore()
 }
 
-const getVertix = (theta: number, radiux: number, center: vec2) => {
+const getVertix = (theta: number, radiux: number, center: IPoint2D): IPoint2D => {
   //console.log(`t: ${theta}, r: ${radiux}, cx: ${center[0]}, cy: ${center[1]}`)
-  const x = center[0] + radiux * Math.cos(theta);
-  const y = center[1] - radiux * Math.sin(theta);
+  const x = center.x + radiux * Math.cos(theta);
+  const y = center.y - radiux * Math.sin(theta);
   console.log(`x: ${x}, y: ${y}`)
-  return vec2.fromValues(x, y)
+  return {x, y}
 };
 
 const getRadiux = (length: number, theta: number) => {

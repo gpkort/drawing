@@ -1,5 +1,6 @@
 import { vec2 } from "../Utilities";
 import { IColor } from "./Color";
+import { IPoint2D, IShape } from "./Shape";
 
 export interface ILine {
   color?: IColor;
@@ -9,6 +10,6 @@ export interface ILine {
 
 // TODO: change to straight line
 export interface IStraigtLine extends ILine {
-  begin: vec2;
-  end: vec2;
+  begin: IPoint2D;
+  end: IPoint2D;
 }

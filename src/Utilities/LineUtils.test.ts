@@ -1,23 +1,23 @@
 import { lineLen, lineMidpoint, rotateLine, LineStyle, getLineStyle } from ".";
-import { IStraigtLine } from "../geometry";
+import { IPoint2D, IStraigtLine } from "../geometry";
 import { vec2 } from ".";
 import { describe, expect, test } from "vitest"; // <-- **
 
 describe("len", () => {
   test("simple happy path", () => {
-    const a = vec2.fromValues(0, 0);
-    const b = vec2.fromValues(3, 4);
+    const a = {x: 0, y: 0};
+    const b = {x: 3, y: 4};
     expect(lineLen(a, b)).toEqual(5);
   });
 });
 
 describe("midpoint", () => {
   test("simple happy path", () => {
-    const a = vec2.fromValues(0, 0);
-    const b = vec2.fromValues(0, 10);
+    const a = { x: 0, y: 0 };
+    const b = { x: 0, y: 10};
     const mp = lineMidpoint(a, b);
-    expect(mp[0]).toEqual(0);
-    expect(mp[1]).toEqual(5);
+    expect(mp.x).toEqual(0);
+    expect(mp.y).toEqual(5);
   });
 });
 
@@ -25,18 +25,22 @@ describe("rotate", () => {
   test("pi over two", () => {
     const line: IStraigtLine = {
       width: 1,
-      begin: vec2.fromValues(-1, 0),
-      end: vec2.fromValues(1, 0),
+      begin: {x: -1, y: 0},
+      end: {x: 1, y: 0 },
       lineStyle: getLineStyle("dash"),
     };
     const mp = lineMidpoint(line.begin, line.end);
-    expect(mp[0]).toEqual(0);
-    expect(mp[1]).toEqual(0);
+    expect(mp.x).toEqual(0);
+    expect(mp.y).toEqual(0);
     const newLine = rotateLine(line, Math.PI / 2, mp);
-    const newBegin = vec2.fromValues(0, -1);
-    const endBegin = vec2.fromValues(0, 1);
+    console.log(`begin: ${newLine.begin.x}, ${newLine.begin.y}`);
+    console.log(`end: ${newLine.end.x}, ${newLine.end.y}`)
+    const newBegin: IPoint2D = {x: 0, y: -1}; 
+    const newEnd: IPoint2D = {x: 0, y: 1}; 
 
-    expect(vec2.equals(newBegin, newLine.begin)).toBeTruthy();
-    expect(vec2.equals(endBegin, newLine.end)).toBeTruthy();
+    expect(newLine.begin.x).toBeCloseTo(newBegin.x, 4);
+    expect(newLine.begin.y).toBeCloseTo(newBegin.y, 4);
+    expect(newLine.end.x).toBeCloseTo(newEnd.x, 4);
+    expect(newLine.end.y).toBeCloseTo(newEnd.y, 4);    
   });
 });

@@ -1,4 +1,4 @@
-import { IStraigtLine } from "../geometry";
+import { IPoint2D, IStraigtLine } from "../geometry";
 import { getRGBAString, vec2 } from ".";
 import { rotatePoints } from "./.";
 
@@ -21,8 +21,8 @@ export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
 
   ctx.strokeStyle = getRGBAString(line.color);
   ctx.setLineDash(line.lineStyle);
-  ctx.moveTo(line.begin[0], line.begin[1]);
-  ctx.lineTo(line.end[0], line.end[1]);
+  ctx.moveTo(line.begin.x, line.begin.y);
+  ctx.lineTo(line.end.x, line.end.y);
   ctx.stroke();
 
   ctx.restore();
@@ -31,22 +31,22 @@ export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
 export const rotateLine = (
   line: IStraigtLine,
   rotation: number,
-  origin: vec2
+  origin: IPoint2D
 ): IStraigtLine => {
   const newLine: IStraigtLine = { ...line };
   const points = [line.begin, line.end];
-  // vec2.rotate(newLine.end, line.end, origin, rotation);
-  // vec2.rotate(newLine.begin, line.begin, origin, rotation);
   rotatePoints(points, origin, rotation);
+  console.log(`start: ${points[0].x}, ${points[0].y}`);
+  console.log(`finish: ${points[1].x}, ${points[1].y}`)
   newLine.begin = points[0];
   newLine.end = points[1];
   return newLine;
 };
 
-export const lineLen = (a: vec2, b: vec2) => {
-  return Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
+export const lineLen = (a: IPoint2D, b: IPoint2D) => {
+  return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
 };
 
-export const lineMidpoint = (a: vec2, b: vec2) => {
-  return vec2.fromValues((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+export const lineMidpoint = (a: IPoint2D, b: IPoint2D) => {
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2};
 };

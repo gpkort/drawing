@@ -17,8 +17,8 @@ export default class Drawing {
   #context: CanvasRenderingContext2D;
 
   #line: IStraigtLine = {
-    begin: vec2.fromValues(500, 260),
-    end: vec2.fromValues(750, 260),
+    begin:{x:500, y:260},
+    end: {x:750, y:260},
     width: 10,
     lineStyle: getLineStyle("dash"),
     color: { r: 255, g: 0, b: 0, a: 100 },
@@ -31,7 +31,7 @@ export default class Drawing {
       lineStyle: [],
     },
     fillColor: { r: 200, g: 0, b: 255, a: 100 },
-    center: vec2.fromValues(500, 500),
+    center: { x: 500, y:500 },
     radius: 300,
   };
 
@@ -42,7 +42,7 @@ export default class Drawing {
       lineStyle: []
     },
     fillColor: {r:255, g:255, b:0, a:100},
-    center: vec2.fromValues(500, 500),
+    center: { x: 500, y:500 },
     sideLength: 50,
     numberOfSides: 8
   }
@@ -52,6 +52,7 @@ export default class Drawing {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
     this.#context = this.#canvas.getContext("2d");
+    this.#context.globalCompositeOperation
 
     //drawLine(this.#line, this.#context);
     drawCircle(this.#circle, this.#context);

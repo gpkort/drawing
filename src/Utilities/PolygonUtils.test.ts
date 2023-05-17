@@ -24,7 +24,7 @@ describe("xform", () => {
         b: 0,
         a: 100
       },
-      center: vec2.fromValues(0, 0)
+      center: {x:0, y:0}
     };
     const verticies = getVertices(square);
     console.log(`x: ${verticies[0][0]}, y: ${verticies[0][1]}`)
