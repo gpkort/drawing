@@ -12,7 +12,7 @@ export const drawEquilateral = (shape: IEquilateral, ctx: CanvasRenderingContext
 
 export const getVertices = (shape: IEquilateral) => {
   const sides = shape.numberOfSides;
-  const verticies = new Array<vec2>();
+  const verticies = new Array<IPoint2D>();
   const alpha = (2 * Math.PI) / sides;
   const radiux = getRadiux(shape.sideLength, alpha);
   let theta = Math.PI / 2
