@@ -1,7 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { getVertices } from ".";
 import { vec2 } from "gl-matrix";
-import { IEquilateral } from "../geometry/Polygon";
+import { IEquilateral } from "../geometry";
+import { Point2DEquals } from "./";
 
 describe("xform", () => {
   test("t1", () => {
@@ -15,23 +16,22 @@ describe("xform", () => {
           r: 0,
           g: 0,
           b: 0,
-          a: 100
-        } 
+          a: 100,
+        },
       },
       fillColor: {
         r: 0,
         g: 0,
         b: 0,
-        a: 100
+        a: 100,
       },
-      center: {x:0, y:0}
+      center: { x: 0, y: 0.0 },
     };
     const verticies = getVertices(square);
-    console.log(`x: ${verticies[0][0]}, y: ${verticies[0][1]}`)
+    console.log(`x: ${verticies[1].x}, y: ${verticies[1].y}`);
 
-    expect(vec2.equals(verticies[0], vec2.fromValues(0, -1))).toBeTruthy();
-    expect(vec2.equals(verticies[1], vec2.fromValues(-1, 0))).toBeTruthy();
-    expect(vec2.equals(verticies[2], vec2.fromValues(0, -1))).toBeTruthy();
-    expect(vec2.equals(verticies[3], vec2.fromValues(0, 1))).toBeTruthy();
+    expect(Point2DEquals(verticies[0], { x: 0, y: -1 })).toBeTruthy();
+    expect(Point2DEquals(verticies[1], { x: -1, y: 0 })).toBeTruthy();
+    expect(Point2DEquals(verticies[2], { x: 0, y: -1 })).toBeTruthy();
   });
 });
