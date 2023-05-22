@@ -33,8 +33,6 @@ describe("rotate", () => {
     expect(mp.x).toEqual(0);
     expect(mp.y).toEqual(0);
     const newLine = rotateLine(line, Math.PI / 2, mp);
-    console.log(`begin: ${newLine.begin.x}, ${newLine.begin.y}`);
-    console.log(`end: ${newLine.end.x}, ${newLine.end.y}`)
     const newBegin: IPoint2D = {x: 0, y: -1}; 
     const newEnd: IPoint2D = {x: 0, y: 1}; 
 

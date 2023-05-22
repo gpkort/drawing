@@ -24,18 +24,18 @@ export const getVertices = (shape: IEquilateral) => {
   return verticies;
 };
 
-export const drawFromVerticies = (points: Array<vec2>, 
+export const drawFromVerticies = (points: Array<IPoint2D>, 
                                   line: ILine, 
                                   fillColor: IColor, 
                                   ctx: CanvasRenderingContext2D) => {
   ctx.save();
 
-  ctx.moveTo(points[0][0], points[0][1]);
+  ctx.moveTo(points[0].x, points[0].y);
   points.forEach(point => {
-    ctx.lineTo(point[0], point[1]);
+    ctx.lineTo(point.y, point.y);
   });
 
-  ctx.lineTo(points[0][0], points[0][1])
+  ctx.lineTo(points[0].x, points[0].y)
 
   ctx.fillStyle = getRGBAString(fillColor);
   ctx.fill();
@@ -50,7 +50,7 @@ const getVertix = (theta: number, radiux: number, center: IPoint2D): IPoint2D =>
   //console.log(`t: ${theta}, r: ${radiux}, cx: ${center[0]}, cy: ${center[1]}`)
   const x = center.x + radiux * Math.cos(theta);
   const y = center.y - radiux * Math.sin(theta);
-  console.log(`x: ${x}, y: ${y}`)
+  
   return {x, y}
 };
 

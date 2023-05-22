@@ -1,6 +1,6 @@
 import { vec2 } from "../Utilities";
 import { IColor } from "./Color";
-import { IPoint2D, IShape } from "./Shape";
+import { IPoint2D, IShape } from "./";
 
 export interface ILine {
   color?: IColor;

@@ -52,10 +52,13 @@ export default class Drawing {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
     this.#context = this.#canvas.getContext("2d");
-    this.#context.globalCompositeOperation
+    // this.#context.globalCompositeOperation
+
+    console.log(`offx: ${this.#canvas.offsetWidth}`)
+    console.log(`offy: ${this.#canvas.offsetHeight}`)
 
     //drawLine(this.#line, this.#context);
-    drawCircle(this.#circle, this.#context);
+    //drawCircle(this.#circle, this.#context);
     //drawEquilateral(this.#penatagon, this.#context);
 
     //this.#animate();

@@ -49,10 +49,14 @@ export const Vec2ToPoint2D = (vec: vec2): IPoint2D => {
 export const Point2DEquals = (
   a: IPoint2D,
   b: IPoint2D,
-  precisionFactor: number = 18
+  precisionFactor: number = 10
 ) => {
   return (
-    Math.abs(a.x - b.x) < Math.pow(10, -precisionFactor) &&
-    Math.abs(a.y - b.y) < Math.pow(10, -precisionFactor)
+    Math.abs(a.x - b.x) < Math.pow(10, precisionFactor < 0 ? precisionFactor : -precisionFactor) &&
+    Math.abs(a.y - b.y) < Math.pow(10, precisionFactor < 0 ? precisionFactor : -precisionFactor)
   );
 };
+
+export const equals = (a: number, b:number, precisionFactor: number = 10) => {
+  return Math.abs(a - b) < Math.pow(10, precisionFactor < 0 ? precisionFactor : -precisionFactor)
+}

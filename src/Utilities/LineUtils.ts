@@ -36,8 +36,6 @@ export const rotateLine = (
   const newLine: IStraigtLine = { ...line };
   const points = [line.begin, line.end];
   rotatePoints(points, origin, rotation);
-  console.log(`start: ${points[0].x}, ${points[0].y}`);
-  console.log(`finish: ${points[1].x}, ${points[1].y}`)
   newLine.begin = points[0];
   newLine.end = points[1];
   return newLine;

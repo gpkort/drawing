@@ -1,4 +1,4 @@
-import { IGeometry } from "./Shape";
+import { IGeometry } from "./";
 
 export interface IEquilateral extends IGeometry {
   numberOfSides: number;
