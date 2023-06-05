@@ -1,7 +1,7 @@
 import { assertType, describe, expect, test } from "vitest";
 import { Point2D } from "./Point2D";
 import { IPoint2D } from "./IShape";
-import { vec2 } from "../Utilities";
+import { vec2 } from "../Utilities/TwoD";
 
 describe("Constructor", () => {
     const point = new Point2D(4, 2)

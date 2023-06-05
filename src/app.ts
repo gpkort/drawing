@@ -5,11 +5,14 @@ import {
   lineMidpoint,
   drawLine,
   getLineStyle,
-} from "./Utilities";
+} from "./Utilities/TwoD";
 import { ICircle, IStraigtLine } from "./geometry";
-import { drawCircle } from "./Utilities/EllipseUtils";
-import { IEquilateral } from "./geometry/Polygon";
-import { drawEquilateral } from "./Utilities";
+import { drawCircle } from "./Utilities/TwoD/EllipseUtils";
+import { IEquilateral } from "./geometry/Equilateral";
+import { drawEquilateral } from "./Utilities/TwoD";
+import { importFromJson, drawPolygon } from "./Utilities/TwoD/PolygonUtils";
+import squarePoly from './json/square.json'
+import { IPolygon } from "./geometry/Polygon";
 
 
 export default class Drawing {
@@ -62,6 +65,11 @@ export default class Drawing {
     //drawEquilateral(this.#penatagon, this.#context);
 
     //this.#animate();
+
+    // this.#context.globalCompositeOperation = 'destination-over';
+
+    const ps = squarePoly satisfies IPolygon
+    drawPolygon(ps, this.#context)
   }
 
   #animate() {

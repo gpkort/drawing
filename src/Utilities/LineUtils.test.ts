@@ -1,6 +1,6 @@
-import { lineLen, lineMidpoint, rotateLine, LineStyle, getLineStyle } from ".";
+import { lineLen, lineMidpoint, rotateLine, LineStyle, getLineStyle } from "./TwoD";
 import { IPoint2D, IStraigtLine } from "../geometry";
-import { vec2 } from ".";
+import { vec2 } from "./TwoD";
 import { describe, expect, test } from "vitest"; // <-- **
 
 describe("len", () => {

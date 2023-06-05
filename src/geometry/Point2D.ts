@@ -1,6 +1,6 @@
 import { vec2 } from 'gl-matrix'
 import { IPoint2D } from '.'
-import { equals } from '../Utilities'
+import { equals } from '../Utilities/TwoD'
 
 /**
  * Cartesian coordinate

@@ -1,7 +1,7 @@
 import { vec2 } from ".";
-import { IColor, IGeometry, ILine, IPoint2D, IShape } from "../geometry";
-import { IEquilateral } from "../geometry/Polygon";
-import { getRGBAString } from "./.";
+import { IColor, IGeometry, ILine, IPoint2D, IShape } from "../../geometry";
+import { IEquilateral } from "../../geometry/Equilateral";
+import { getRGBAString } from ".";
 
 export const drawEquilateral = (shape: IEquilateral, ctx: CanvasRenderingContext2D) => {
   const verticies = getVertices(shape)

@@ -1,6 +1,6 @@
 import { describe, expect, test, assertType } from "vitest";
 import { IColor } from "../geometry/Color";
-import { getRGBAString, getRGBString } from ".";
+import { getRGBAString, getRGBString } from "./TwoD";
 
 describe("Create", () => {
   test("Type Check", () => {

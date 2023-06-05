@@ -1,8 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { getVertices } from ".";
-import { vec2 } from "gl-matrix";
-import { IEquilateral, IPoint2D } from "../geometry";
-import { Point2DEquals } from "./";
+import { IEquilateral } from "../../geometry";
+import { Point2DEquals } from ".";
 
 describe("xform", () => {
   test("t1", () => {

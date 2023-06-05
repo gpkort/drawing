@@ -1,4 +1,4 @@
-import { vec2 } from "../Utilities";
+import { vec2 } from "../Utilities/TwoD";
 import { IColor } from "./Color";
 import { ILine } from "./Lines";
 

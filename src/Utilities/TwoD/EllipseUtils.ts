@@ -1,5 +1,5 @@
-import { ICircle, IEllipse } from "../geometry";
-import { getRGBAString } from "./.";
+import { ICircle, IEllipse } from "../../geometry";
+import { getRGBAString } from ".";
 
 export const drawCircle = (circle: ICircle, ctx: CanvasRenderingContext2D) => {
   const ellipse: IEllipse = {
@@ -31,6 +31,8 @@ export const drawEllipse = (
   ctx.stroke();
 
   ctx.restore();
+  ctx.closePath();
+  ctx.beginPath();
 };
 
 /*

@@ -1,6 +1,9 @@
-import { IGeometry } from "./";
+import { IColor } from "./Color";
+import { IPoint2D, IShape } from "./IShape";
+import { ILine } from "./Lines";
 
-export interface IEquilateral extends IGeometry {
-  numberOfSides: number;
-  sideLength: number;
+export interface IPolygon extends IShape {
+    line: ILine
+    fillColor: IColor
+    points:Array<IPoint2D>
 }

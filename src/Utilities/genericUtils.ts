@@ -1,4 +1,4 @@
-import { vec2 } from ".";
+import { vec2 } from "./TwoD";
 import { IPoint2D } from "../geometry";
 
 const DEFAULT_CANVAS_HEIGHT = 500;

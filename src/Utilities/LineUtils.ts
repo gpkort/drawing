@@ -1,6 +1,6 @@
 import { IPoint2D, IStraigtLine } from "../geometry";
-import { getRGBAString, vec2 } from ".";
-import { rotatePoints } from "./.";
+import { getRGBAString, vec2 } from "./TwoD";
+import { rotatePoints } from "./TwoD";
 
 export type LineStyle = "dash" | "stipple" | "solid";
 
