@@ -5,6 +5,7 @@ import {
   lineMidpoint,
   drawLine,
   getLineStyle,
+  getRGBAString,
 } from "./Utilities/TwoD";
 import { ICircle, IStraigtLine } from "./geometry";
 import { drawCircle } from "./Utilities/TwoD/EllipseUtils";
@@ -57,8 +58,7 @@ export default class Drawing {
     this.#context = this.#canvas.getContext("2d");
     // this.#context.globalCompositeOperation
 
-    console.log(`offx: ${this.#canvas.offsetWidth}`)
-    console.log(`offy: ${this.#canvas.offsetHeight}`)
+    
 
     //drawLine(this.#line, this.#context);
     //drawCircle(this.#circle, this.#context);
@@ -70,6 +70,7 @@ export default class Drawing {
 
     const ps = squarePoly satisfies IPolygon
     drawPolygon(ps, this.#context)
+
   }
 
   #animate() {

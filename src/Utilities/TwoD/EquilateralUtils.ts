@@ -32,7 +32,7 @@ export const drawFromVerticies = (points: Array<IPoint2D>,
 
   ctx.moveTo(points[0].x, points[0].y);
   points.forEach(point => {
-    ctx.lineTo(point.y, point.y);
+    ctx.lineTo(point.x, point.y);
   });
 
   ctx.lineTo(points[0].x, points[0].y)
@@ -43,7 +43,7 @@ export const drawFromVerticies = (points: Array<IPoint2D>,
   ctx.strokeStyle = getRGBAString(line.color);
   ctx.stroke();
 
-  ctx.restore()
+  ctx.restore();
 }
 
 const getVertix = (theta: number, radiux: number, center: IPoint2D): IPoint2D => {
