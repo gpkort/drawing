@@ -12,65 +12,34 @@ import { drawCircle } from "./Utilities/TwoD/EllipseUtils";
 import { IEquilateral } from "./geometry/Equilateral";
 import { drawEquilateral } from "./Utilities/TwoD";
 import { importFromJson, drawPolygon } from "./Utilities/TwoD/PolygonUtils";
-import squarePoly from './json/square.json'
+import squarePoly from "./json/square.json";
 import { IPolygon } from "./geometry/Polygon";
-
+import { drawSpraySquare } from "./Utilities/SprayPaint";
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
   #context: CanvasRenderingContext2D;
 
   #line: IStraigtLine = {
-    begin:{x:500, y:260},
-    end: {x:750, y:260},
+    begin: { x: 500, y: 260 },
+    end: { x: 750, y: 260 },
     width: 10,
     lineStyle: getLineStyle("dash"),
     color: { r: 255, g: 0, b: 0, a: 100 },
   };
 
-  #circle: ICircle = {
-    outline: {
-      color: { r: 0, g: 0, b: 100, a: 100 },
-      width: 8,
-      lineStyle: [],
-    },
-    fillColor: { r: 200, g: 0, b: 255, a: 100 },
-    center: { x: 500, y:500 },
-    radius: 300,
-  };
-
-  #penatagon: IEquilateral = {
-    outline: {
-      color: {r:0, g:0, b:0, a: 100},
-      width: 2,
-      lineStyle: []
-    },
-    fillColor: {r:255, g:255, b:0, a:100},
-    center: { x: 500, y:500 },
-    sideLength: 50,
-    numberOfSides: 8
-  }
-  
-
   constructor() {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
     this.#context = this.#canvas.getContext("2d");
-    // this.#context.globalCompositeOperation
 
-    
-
-    //drawLine(this.#line, this.#context);
-    //drawCircle(this.#circle, this.#context);
-    //drawEquilateral(this.#penatagon, this.#context);
-
-    //this.#animate();
-
-    // this.#context.globalCompositeOperation = 'destination-over';
-
-    const ps = squarePoly satisfies IPolygon
-    drawPolygon(ps, this.#context)
-
+    drawSpraySquare(
+      { x: 100, y: 100 },
+      200,
+      { r: 0, g: 0, b: 0, a: 100 },
+      50,
+      this.#context
+    );
   }
 
   #animate() {
