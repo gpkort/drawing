@@ -34,10 +34,10 @@ export default class Drawing {
     this.#context = this.#canvas.getContext("2d");
 
     drawSpraySquare(
-      { x: 100, y: 100 },
-      200,
+      { x: 200, y: 200 },
+      25,
       { r: 0, g: 0, b: 0, a: 100 },
-      50,
+      10,
       this.#context
     );
   }

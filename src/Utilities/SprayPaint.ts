@@ -1,6 +1,33 @@
 import { IColor, IPoint2D } from "../geometry";
 import { getRGBAString } from "./TwoD/index";
 
+const getRandomGrid = (
+  height: number,
+  width: number,
+  density: number
+): Array<IPoint2D> => {
+  const grid = new Array<IPoint2D>();
+  const amount = Math.round(height * width * density);
+
+  for (let n = 0; n < amount; n++) {
+    let i = Math.round(Math.random() * width);
+    let j = Math.round(Math.random() * height);
+    i = i < width ? i : width - 1;
+    j = j < height ? j : height - 1;
+    grid.push({ x: i, y: j });
+    console.log(`i: ${i}, j: ${j}`);
+  }
+
+  return grid;
+};
+
+const getNormalizedDensity = (density: number) => {
+  density = density > 100 ? 100 : density;
+  density = density < 0 ? 0 : density;
+
+  return density / 100;
+};
+
 export const drawSpraySquare = (
   center: IPoint2D,
   side: number,
@@ -9,47 +36,21 @@ export const drawSpraySquare = (
   ctx: CanvasRenderingContext2D
 ) => {
   density = getNormalizedDensity(density);
-
+  console.log(`s: ${side}, d: ${density}`);
   const grid = getRandomGrid(side, side, density);
   const offset = side / 2;
   const topLeft: IPoint2D = {
     x: Math.round(center.x - offset),
     y: Math.round(center.y - offset),
   };
+  const rgbString = getRGBAString(color);
 
-  for (let i = 0; i < side; i++) {
-    for (let j = 0; j < side; j++) {
-      if (grid[i][j] === 1) {
-        ctx.fillStyle = getRGBAString(color);
-        ctx.fillRect(topLeft.x + i, topLeft.y + j, 1, 1);
-      }
-    }
+  for (let p of grid) {
+    ctx.fillStyle = rgbString;
+    ctx.fillRect(topLeft.x + p.x, topLeft.y + p.y, 1, 1);
   }
 };
 
-const getRandomGrid = (
-  height: number,
-  width: number,
-  density: number
-): number[][] => {
-  const grid = new Array(width).fill(new Array(height).fill(0));
-  const amount = Math.round(height * width * density);
-
-  for (let i = 0; i < amount; i++) {
-    const i = Math.round(Math.random() * width);
-    const j = Math.round(Math.random() * height);
-    grid[i][j] = 1;
-  }
-
-  return grid;
-};
-
-// ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
-// ctx.fillRect( x, y, 1, 1 );
-
-const getNormalizedDensity = (density: number) => {
-  density = density > 100 ? 100 : density;
-  density = density < 0 ? 0 : density;
-
-  return density / 100;
-};
+// ctx.restore();
+//   ctx.closePath();
+//   ctx.beginPath();
