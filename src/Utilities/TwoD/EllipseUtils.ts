@@ -1,15 +1,6 @@
 import { ICircle, IEllipse } from "../../geometry";
 import { getRGBAString } from ".";
 
-export const drawCircle = (circle: ICircle, ctx: CanvasRenderingContext2D) => {
-  const ellipse: IEllipse = {
-    xRadius: circle.radius,
-    yRadius: 0,
-    ...circle,
-  };
-  drawEllipse(ellipse, ctx);
-};
-
 export const drawEllipse = (
   ellipse: IEllipse,
   ctx: CanvasRenderingContext2D

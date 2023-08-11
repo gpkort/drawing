@@ -15,7 +15,6 @@ const getRandomGrid = (
     i = i < width ? i : width - 1;
     j = j < height ? j : height - 1;
     grid.push({ x: i, y: j });
-    console.log(`i: ${i}, j: ${j}`);
   }
 
   return grid;
@@ -36,7 +35,6 @@ export const drawSpraySquare = (
   ctx: CanvasRenderingContext2D
 ) => {
   density = getNormalizedDensity(density);
-  console.log(`s: ${side}, d: ${density}`);
   const grid = getRandomGrid(side, side, density);
   const offset = side / 2;
   const topLeft: IPoint2D = {

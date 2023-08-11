@@ -5,7 +5,7 @@ import { IPoint2D, IShape } from "./";
 export interface ILine {
   color?: IColor;
   width: number;
-  lineStyle: number[];
+  lineStyle?: number[];
 }
 
 // TODO: change to straight line

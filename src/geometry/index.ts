@@ -8,4 +8,6 @@ export { ILine, IStraigtLine } from "./Lines";
 
 export { IEquilateral } from "./Equilateral";
 
-export { Point2D } from './Point2D'
+export { Point2D } from "./Point2D";
+
+export { Circle, drawCircle } from "./Circle";

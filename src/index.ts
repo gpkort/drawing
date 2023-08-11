@@ -1,3 +1,3 @@
 import Drawing from "./app";
 
-const drawing = new Drawing();
+const drawing = new Drawing("top_canvas");

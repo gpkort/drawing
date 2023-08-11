@@ -7,8 +7,7 @@ import {
   getLineStyle,
   getRGBAString,
 } from "./Utilities/TwoD";
-import { ICircle, IStraigtLine } from "./geometry";
-import { drawCircle } from "./Utilities/TwoD/EllipseUtils";
+import { drawCircle, Circle, IStraigtLine } from "./geometry";
 import { IEquilateral } from "./geometry/Equilateral";
 import { drawEquilateral } from "./Utilities/TwoD";
 import { importFromJson, drawPolygon } from "./Utilities/TwoD/PolygonUtils";
@@ -28,9 +27,10 @@ export default class Drawing {
     color: { r: 255, g: 0, b: 0, a: 100 },
   };
 
-  constructor() {
+  constructor(canvasName: string) {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
+    //this.#canvas = document.getElementById(canvasName) as HTMLCanvasElement;
     this.#context = this.#canvas.getContext("2d");
 
     drawSpraySquare(
@@ -40,6 +40,19 @@ export default class Drawing {
       10,
       this.#context
     );
+
+    // document.addEventListener("mousemove", move, false);
+    // document.addEventListener("mousedown", setDraggable, false);
+    // document.addEventListener("mouseup", setDraggable, false);
+
+    const c1 = new Circle(
+      50,
+      { color: { r: 0, g: 255, b: 0, a: 100 }, width: 5 },
+      { r: 0, g: 255, b: 0, a: 0 },
+      { x: 500, y: 500 },
+      "c1"
+    );
+    // drawCircle(c1, )
   }
 
   #animate() {
