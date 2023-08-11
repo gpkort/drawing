@@ -36,7 +36,7 @@ export const drawSpraySquare = (
 ) => {
   density = getNormalizedDensity(density);
   const grid = getRandomGrid(side, side, density);
-  const offset = side / 2;
+  const offset = side;
   const topLeft: IPoint2D = {
     x: Math.round(center.x - offset),
     y: Math.round(center.y - offset),

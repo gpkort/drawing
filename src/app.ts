@@ -17,7 +17,15 @@ import { drawSpraySquare } from "./Utilities/SprayPaint";
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
+
   #context: CanvasRenderingContext2D;
+
+  #isMouseDown = false;
+
+  #focused = {
+    key: 0,
+    state: false,
+  };
 
   #line: IStraigtLine = {
     begin: { x: 500, y: 260 },
@@ -35,24 +43,41 @@ export default class Drawing {
 
     drawSpraySquare(
       { x: 200, y: 200 },
-      25,
+      50,
       { r: 0, g: 0, b: 0, a: 100 },
       10,
       this.#context
     );
 
-    // document.addEventListener("mousemove", move, false);
-    // document.addEventListener("mousedown", setDraggable, false);
-    // document.addEventListener("mouseup", setDraggable, false);
+    document.addEventListener("mousemove", this.#move);
+    document.addEventListener("mousedown", this.#setDraggable, false);
+    document.addEventListener("mouseup", this.#setDraggable, false);
 
     const c1 = new Circle(
-      50,
+      20,
       { color: { r: 0, g: 255, b: 0, a: 100 }, width: 5 },
       { r: 0, g: 255, b: 0, a: 0 },
-      { x: 500, y: 500 },
+      { x: 750, y: 750 },
       "c1"
     );
-    // drawCircle(c1, )
+    drawCircle(c1, this.#context);
+  }
+
+  #move(event: MouseEvent) {
+    console.log("Move");
+  }
+
+  #setDraggable(event: MouseEvent) {
+    if (event.type === "mousedown") {
+      this.#isMouseDown = true;
+    } else if (event.type === "mouseup") {
+      this.#isMouseDown = false;
+      this.#releaseFocus;
+    }
+  }
+
+  #releaseFocus() {
+    this.#focused.state = false;
   }
 
   #animate() {
