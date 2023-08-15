@@ -17,3 +17,7 @@ export interface IGeometry extends IShape {
   fillColor: IColor;
   center: IPoint2D;
 }
+
+export interface ICircle extends IGeometry {
+  radius: number;
+}

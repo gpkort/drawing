@@ -25,6 +25,7 @@
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
+    "guid-typescript": "^1.0.9",
     "vitest": "^0.31.0"
   }
 }

@@ -48,7 +48,3 @@ export const drawSpraySquare = (
     ctx.fillRect(topLeft.x + p.x, topLeft.y + p.y, 1, 1);
   }
 };
-
-// ctx.restore();
-//   ctx.closePath();
-//   ctx.beginPath();
