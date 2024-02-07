@@ -19,7 +19,8 @@ export const getLineStyle = (name: LineStyle): number[] => {
 export const drawLine = (line: IStraigtLine, ctx: CanvasRenderingContext2D) => {
   ctx.save();
 
-  ctx.strokeStyle = getRGBAString(line.color);
+  ctx.beginPath();
+  //ctx.strokeStyle = getRGBAString(line.color);
   ctx.setLineDash(line.lineStyle);
   ctx.moveTo(line.begin.x, line.begin.y);
   ctx.lineTo(line.end.x, line.end.y);
@@ -46,5 +47,5 @@ export const lineLen = (a: IPoint2D, b: IPoint2D) => {
 };
 
 export const lineMidpoint = (a: IPoint2D, b: IPoint2D) => {
-  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2};
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 };

@@ -1,19 +1,37 @@
 import { getRGBAString } from "../Utilities/TwoD";
-import { ICircle, IPoint2D } from "./IShape";
-import { SceneGraphNode } from "../sg/SceneGraphNode";
+import { ILine, IColor } from "../geometry";
+import { ICircle, IPoint2D } from "../geometry/IShape";
+import { SceneGraphNode } from "./SceneGraphNode";
 import { Guid } from "guid-typescript";
+import { INodeDescriptor, NodeType } from "./SceneGraphNodeCreator";
 
-export class Circle implements SceneGraphNode {
+export class CircleDescriptor implements INodeDescriptor {
+  readonly nodeID: Guid;
+  readonly nodeType: NodeType = "circle";
+  circle: ICircle;
+}
+
+export const isCirleDescriptor = (
+  descript: INodeDescriptor
+): descript is CircleDescriptor => {
+  return (descript as CircleDescriptor).circle !== undefined;
+};
+
+export class CircleNode extends SceneGraphNode {
   #circle: ICircle;
 
-  #guid: Guid;
-
-  constructor(guid: Guid, circle: ICircle) {
+  private constructor(guid: Guid, circle: ICircle) {
+    super();
     this.#circle = this.#circle;
+    this.nodeGuid;
   }
 
-  get NodeID(): Guid {
-    return this.#guid;
+  static createNode(descriptor: INodeDescriptor): CircleNode {
+    if (isCirleDescriptor(descriptor)) {
+      return new CircleNode(descriptor.nodeID, descriptor.circle);
+    } else {
+      throw new Error("Create Node from CircleNode requires a");
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {

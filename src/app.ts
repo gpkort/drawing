@@ -7,12 +7,7 @@ import {
   getLineStyle,
   getRGBAString,
 } from "./Utilities/TwoD";
-import { drawCircle, Circle, IStraigtLine } from "./geometry";
-import { IEquilateral } from "./geometry/Equilateral";
-import { drawEquilateral } from "./Utilities/TwoD";
-import { importFromJson, drawPolygon } from "./Utilities/TwoD/PolygonUtils";
-import squarePoly from "./json/square.json";
-import { IPolygon } from "./geometry/Polygon";
+import { IStraigtLine, IPoint2D } from "./geometry";
 import { drawSpraySquare } from "./Utilities/SprayPaint";
 
 export default class Drawing {
@@ -22,20 +17,27 @@ export default class Drawing {
 
   #isMouseDown = false;
 
+  readonly #TOP_Y = 900;
+  readonly #BOTTOM_Y = 1000;
+  #topX = 50;
+  #bottomX = 50;
+
   #focused = {
     key: 0,
     state: false,
   };
 
+  #mousePosition: IPoint2D = { x: 0, y: 0 };
+
   #line: IStraigtLine = {
-    begin: { x: 500, y: 260 },
-    end: { x: 750, y: 260 },
+    color: { r: 0, g: 0, b: 0, a: 0 },
     width: 10,
-    lineStyle: getLineStyle("dash"),
-    color: { r: 255, g: 0, b: 0, a: 100 },
+    begin: { x: 50, y: 500 },
+    end: { x: 50, y: 600 },
+    lineStyle: getLineStyle("solid"),
   };
 
-  constructor(canvasName: string) {
+  constructor() {
     console.log("Constructor called");
     this.#canvas = createCanvas(1000, 1000);
     //this.#canvas = document.getElementById(canvasName) as HTMLCanvasElement;
@@ -49,23 +51,45 @@ export default class Drawing {
       this.#context
     );
 
-    document.addEventListener("mousemove", this.#move);
-    document.addEventListener("mousedown", this.#setDraggable, false);
-    document.addEventListener("mouseup", this.#setDraggable, false);
+    drawLine(this.#line, this.#context);
 
-    const c1 = new Circle(
-      20,
-      { color: { r: 0, g: 255, b: 0, a: 100 }, width: 5 },
-      { r: 0, g: 255, b: 0, a: 0 },
-      { x: 750, y: 750 },
-      "c1"
-    );
-    drawCircle(c1, this.#context);
+    // inputRange.addEventListener("input", () => {
+    //   console.log(`bx = ${bbx}`);
+    //   bbx = parseInt(inputRange.value);
+    // });
+
+    this.#animate();
+
+    // document.addEventListener("mousemove", this.#move);
+    // document.addEventListener("mousedown", this.#setDraggable, false);
+    // document.addEventListener("mouseup", this.#setDraggable, false);
+    // this.#animate();
   }
 
-  #move(event: MouseEvent) {
-    console.log("Move");
-  }
+  // #move(event: MouseEvent) {
+  //   if (!this.#isMouseDown) {
+  //     return;
+  //   }
+
+  // this.#mousePosition = { x: event.x, y: event.y };
+
+  //if any circle is focused
+  // if (focused.state) {
+  //   circles[focused.key].x = mousePosition.x;
+  //   circles[focused.key].y = mousePosition.y;
+  //   draw();
+  //   return;
+  // }
+  //no circle currently focused check if circle is hovered
+  // for (var i = 0; i < circles.length; i++) {
+  //   if (intersects(circles[i])) {
+  //     circles.move(i, 0);
+  //     focused.state = true;
+  //     break;
+  //   }
+  // }
+  // draw();
+  // }
 
   #setDraggable(event: MouseEvent) {
     if (event.type === "mousedown") {
@@ -81,23 +105,38 @@ export default class Drawing {
   }
 
   #animate() {
-    let count = 1;
+    let fn = 0;
     const ctx = this.#context;
-    const line = this.#line;
+    const can = this.#canvas;
+    const bx = this.#bottomX;
+    const bI = document.getElementById("bottom_range") as HTMLInputElement;
+    const tI = document.getElementById("top_range") as HTMLInputElement;
+
+    const LL = this.#line;
 
     function draw(timestamp: number) {
-      if (count % 2 === 0) {
-        drawLine(
-          rotateLine(
-            line,
-            -Math.PI / count,
-            lineMidpoint(line.begin, line.end)
-          ),
-          ctx
-        );
+      ctx.clearRect(0, 0, can.width, can.height);
+      if (fn % 50 == 0) {
+        console.log(`animation, bx:${can.width}`);
       }
+
+      const newX = parseInt(tI.value);
+      LL.begin = { x: newX, y: 500 };
+      LL.end = { x: parseInt(bI.value), y: 600 };
+
+      drawLine(LL, ctx);
+
+      drawSpraySquare(
+        { x: 200 + newX, y: 200 },
+        50,
+        { r: 0, g: 0, b: 0, a: 100 },
+        10,
+        ctx
+      );
+
+      fn += 1;
+
       requestAnimationFrame(draw);
-      count++;
     }
 
     requestAnimationFrame(draw);

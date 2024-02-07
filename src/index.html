@@ -5,8 +5,61 @@
     <title>Development</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script defer src="index.bundle.js"></script>
+    <style>
+      body {
+        background-color: powderblue;
+      }
+      h1 {
+        color: blue;
+      }
+      p {
+        color: red;
+      }
+      .range-slider {
+        height: 100%;
+      }
+      .input-range {
+        -webkit-appearance: none;
+        height: 600 px;
+        border-radius: 5px;
+        background: #ccc;
+        outline: none;
+        writing-mode: bt-lr; /* IE */
+        -webkit-appearance: slider-vertical;
+      }
+      .slidecontainer {
+        width: 100%; /* Width of the outside container */
+      }
+      .slider {
+        width: 100%; /* Full-width */
+        height: 25px; /* Specified height */
+      }
+    </style>
   </head>
   <body>
+    <div class="slidecontainer">
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="slider"
+        id="top_range"
+        orient="vertical"
+      />
+    </div>
+    <div class="slidecontainer">
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="slider"
+        id="bottom_range"
+        orient="vertical"
+      />
+    </div>
+
     <!--
     <canvas id="top_canvas" , style="border: 1px solid #000000"></canvas>
    

@@ -1,4 +1,4 @@
-import { ICircle, IEllipse } from "../../geometry";
+import { IEllipse } from "../../geometry";
 import { getRGBAString } from ".";
 
 export const drawEllipse = (

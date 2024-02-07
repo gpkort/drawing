@@ -1,1 +1,1 @@
-import { Node } from "./SceneGraphNode";
+export { ISceneGraphNode } from "./SceneGraphNode";

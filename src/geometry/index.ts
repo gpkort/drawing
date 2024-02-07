@@ -8,4 +8,4 @@ export { IEquilateral } from "./Equilateral";
 
 export { Point2D } from "./Point2D";
 
-export { Circle } from "./Circle";
+export { ICircle, IEllipse } from "./Ellipse";
