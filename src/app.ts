@@ -1,37 +1,40 @@
 import { vec2, vec4 } from "gl-matrix";
-import { createCanvas, testSegments } from "./Utilities";
+import { createCanvas } from "./Utilities";
 import { Line } from "./geometry";
+import segmentInfo from "./segment.json";
 
 export default class Drawing {
   #canvas: HTMLCanvasElement;
   #context: CanvasRenderingContext2D;
   #segments: Array<Line>;
-  #imageWidth = 1000
-  #imageHeight = 1000
-
-  
+  #imageWidth = 1000;
+  #imageHeight = 1000;
 
   constructor() {
     console.log("Constructor called");
-    this.#getSegments()
+    this.#getSegments();
+    console.log(`Length of segments: ${this.#segments.length}`);
     this.#canvas = createCanvas(this.#imageHeight, this.#imageWidth);
     this.#context = this.#canvas.getContext("2d");
-    this.#drawline(vec2.fromValues(0, 0), vec2.fromValues(150, 150))
-      
+
+    this.#segments.forEach((line) => {
+      this.#drawline(line);
+    });
+    // this.#drawline(vec2.fromValues(0, 0), vec2.fromValues(150, 150));
   }
 
   // async #getSegments() {
   //   console.log("Get Segments")
   //   const response = await window.fetch('http://localhost:5000/data', {
-  //     method: 'GET'      
+  //     method: 'GET'
   //   })
   //   console.log("Get Segments response")
-    
+
   //   const {name, errors} = await response.json()
   //   if (response.ok) {
   //     console.log(name)
-     
-  //   } 
+
+  //   }
   //   else {
   //     console.log(errors)
   //   }
@@ -40,24 +43,27 @@ export default class Drawing {
   // }
 
   #getSegments() {
-    this.#imageHeight = testSegments.image_height
-    this.#imageWidth = testSegments.image_width
+    this.#imageHeight = segmentInfo.image_height;
+    this.#imageWidth = segmentInfo.image_width;
 
-    // this.#segments = testSegments.vectors.map((segment) => {
-    //   {
-    //     start: 
-    //   }
-    // })
+    this.#segments = segmentInfo.vectors.map((segment): Line => {
+      {
+        let line: Line = {
+          begin: vec2.fromValues(segment.start.x, segment.start.y),
+          end: vec2.fromValues(segment.end.x, segment.end.y),
+        };
+
+        return line;
+      }
+    });
     //{"start": {"x": 1195, "y": 883}, "end": {"x": 1032, "y": 815}}
-    console.log(`Number of segments: ${testSegments.vectors[0].start.x}`)
-
+    console.log(`Number of segments: ${segmentInfo.vectors[0].start.x}`);
   }
 
-  #drawline(start: vec2, end:vec2) {
-    
+  #drawline(line: Line) {
     this.#context.beginPath();
-    this.#context.moveTo(start[0], start[1]);
-    this.#context.lineTo(end[0], end[1]);
+    this.#context.moveTo(line.begin[0], line.begin[1]);
+    this.#context.lineTo(line.end[0], line.end[1]);
     this.#context.closePath();
     this.#context.stroke();
 

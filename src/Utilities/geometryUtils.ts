@@ -1,6 +1,4 @@
 import { Line, SolidLine } from "../geometry";
-import { vec2 } from ".";
-
 export const drawSolidLine = (
   line: SolidLine,
   ctx: CanvasRenderingContext2D
