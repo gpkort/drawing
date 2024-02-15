@@ -16,6 +16,7 @@ dist-ssr
 package
 coverage
 src/pnpm-lock.yaml
+public/index.bundle.js
 
 
 # Editor directories and files
