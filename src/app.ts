@@ -61,9 +61,19 @@ export default class Drawing {
   }
 
   #drawline(line: Line) {
+    console.log();
+    let xratio = this.#canvas.width / this.#imageWidth;
+    let yratio = this.#canvas.height / this.#imageHeight;
+    console.log(`xr: ${this.#canvas.width}, yr: ${this.#imageWidth}`);
     this.#context.beginPath();
-    this.#context.moveTo(line.begin[0], line.begin[1]);
-    this.#context.lineTo(line.end[0], line.end[1]);
+    this.#context.moveTo(
+      Math.floor(line.begin[0] * xratio),
+      Math.floor(line.begin[1] * yratio)
+    );
+    this.#context.lineTo(
+      Math.floor(line.end[0] * xratio),
+      Math.floor(line.end[1] * yratio)
+    );
     this.#context.closePath();
     this.#context.stroke();
 
