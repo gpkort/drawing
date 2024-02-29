@@ -1,82 +1,79 @@
 import { vec2, vec4 } from "gl-matrix";
-import { createCanvas } from "./Utilities";
-import { Line } from "./geometry";
-import segmentInfo from "./segment.json";
+import { createCanvas, drawLine, getImage, getPose } from "./Utilities";
+import ConfigInfo from "./config.json";
+import { PoseStatus } from "./geometry";
+
+require("./config.json")
 
 export default class Drawing {
-  #canvas: HTMLCanvasElement;
-  #context: CanvasRenderingContext2D;
-  #segments: Array<Line>;
-  #imageWidth = 1000;
-  #imageHeight = 1000;
-
+  
   constructor() {
     console.log("Constructor called");
-    this.#getSegments();
-    console.log(`Length of segments: ${this.#segments.length}`);
-    this.#canvas = createCanvas(this.#imageHeight, this.#imageWidth);
-    this.#context = this.#canvas.getContext("2d");
-
-    this.#segments.forEach((line) => {
-      this.#drawline(line);
-    });
-    // this.#drawline(vec2.fromValues(0, 0), vec2.fromValues(150, 150));
+    
+    getImage(ConfigInfo.image_url, 
+            ConfigInfo.image_port, 
+            ConfigInfo.image_uri).then((value) => {
+              if(value.status === PoseStatus.Ok) {
+                console.log(`Image data was found: ${value.status}`)
+                let imdata = value;
+                let canvas = createCanvas(imdata.height, 
+                                          imdata.width);
+                let ctx = canvas.getContext("2d");
+                if(ctx != null) {
+                  this.#animate(ctx, 
+                                imdata.height, 
+                                imdata.width,
+                                canvas.height,
+                                canvas.width);
+                }                
+              }  
+              else {
+                console.log("No error could be found!")
+              }
+            }).catch((error) => {
+              console.log(`Image data can't be found: ${error}`)
+            });                       
   }
 
-  // async #getSegments() {
-  //   console.log("Get Segments")
-  //   const response = await window.fetch('http://localhost:5000/data', {
-  //     method: 'GET'
-  //   })
-  //   console.log("Get Segments response")
+  #animate(ctx: CanvasRenderingContext2D, 
+           imageHeight: number, 
+           imageWidth: number,
+           canvasHeight: number,
+           canvasWidth: number) 
+  {
+    let count = 1;
+    
+    const url = ConfigInfo.pose_url;
+    const port = ConfigInfo.pose_port;
+    const uri = ConfigInfo.pose_uri;
 
-  //   const {name, errors} = await response.json()
-  //   if (response.ok) {
-  //     console.log(name)
-
-  //   }
-  //   else {
-  //     console.log(errors)
-  //   }
-  //   console.log("Get Segments data")
-  //   console.log(name)
-  // }
-
-  #getSegments() {
-    this.#imageHeight = segmentInfo.image_height;
-    this.#imageWidth = segmentInfo.image_width;
-
-    this.#segments = segmentInfo.vectors.map((segment): Line => {
-      {
-        let line: Line = {
-          begin: vec2.fromValues(segment.start.x, segment.start.y),
-          end: vec2.fromValues(segment.end.x, segment.end.y),
-        };
-
-        return line;
+    function draw(timestamp: number) {
+      if (count % 5 === 0) {
+        console.log("Drawing")
+          getPose(url, port, uri).then((value) => 
+          {
+            if(value.status === PoseStatus.Ok ) {
+              console.log(`Pose: ${value.segments.length}`)
+              value.segments.forEach((segment) => {
+                drawLine(segment, 
+                        imageHeight, 
+                        imageWidth,
+                        canvasHeight,
+                        canvasWidth,
+                        ctx);
+              });
+            }
+          }).catch((error) => {
+            console.log(`Pose data can't be found: ${error}`)
+        });
       }
-    });
-    //{"start": {"x": 1195, "y": 883}, "end": {"x": 1032, "y": 815}}
-    console.log(`Number of segments: ${segmentInfo.vectors[0].start.x}`);
+      requestAnimationFrame(draw);      
+      count++;
+    }
+
+    requestAnimationFrame(draw);
   }
 
-  #drawline(line: Line) {
-    console.log();
-    let xratio = this.#canvas.width / this.#imageWidth;
-    let yratio = this.#canvas.height / this.#imageHeight;
-    console.log(`xr: ${this.#canvas.width}, yr: ${this.#imageWidth}`);
-    this.#context.beginPath();
-    this.#context.moveTo(
-      Math.floor(line.begin[0] * xratio),
-      Math.floor(line.begin[1] * yratio)
-    );
-    this.#context.lineTo(
-      Math.floor(line.end[0] * xratio),
-      Math.floor(line.end[1] * yratio)
-    );
-    this.#context.closePath();
-    this.#context.stroke();
+   
 
-    this.#context.lineWidth = 5;
-  }
 }

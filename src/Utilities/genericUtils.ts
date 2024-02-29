@@ -6,14 +6,14 @@
  * @param width with of the image that the segments were taken from
  * @returns
  */
-export const createCanvas = (height: number, width: number) => {
+export const createCanvas = (height: number, width: number): HTMLCanvasElement => {
   let ratio = height / width;
   let cwidth = window.innerWidth;
   let cheight = window.innerWidth * ratio;
 
   const canvas = <HTMLCanvasElement>document.createElement("canvas");
-  canvas.height = cheight;
-  canvas.width = cwidth;
+  canvas.height = 640;
+  canvas.width = 480;
   document.body.appendChild(canvas);
 
   return canvas;

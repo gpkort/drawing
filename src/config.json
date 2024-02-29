@@ -1,0 +1,8 @@
+{
+    "pose_url": "http://127.0.0.1",
+    "pose_port": 5000,
+    "pose_uri": "pose",
+    "image_url": "http://127.0.0.1",
+    "image_port": 5000,
+    "image_uri": "image"
+}
